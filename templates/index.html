@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dataset Description Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .container {
+            margin-top: 25vh;
+        }
+        .button-container {
+            display: flex;
+            justify-content: space-evenly;
+            margin-bottom: 1rem;
+        }
+        .text-container {
+            width: 100%;
+            height: 200px;
+            resize: none;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dataset Description Generator</h1>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="csv_file" accept=".csv" required>
+            <button type="submit" class="btn btn-primary" id="reset-btn">Upload CSV</button>
+        </form>
+        <form action="/reset", method="POST">
+            <button class="btn btn-primary" type="submit">Reset</button>
+        </form>
+        
+
+
+        <div class="btn-container">
+            <button class="btn btn-primary" id="basic-btn">Basic</button>
+            <button class="btn btn-primary" id="cot-btn">Generated Knowledge</button>
+            <button class="btn btn-primary" id="discover-btn">Discover</button>
+            <button class="btn btn-primary" id="zero-btn">Zero</button>
+        </div>
+
+        <div class="text-container">
+            <p id="text"></p>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            function displayText(data) {
+                $('#text').text(data);
+            }
+
+            $('#basic-btn').click(function() {
+                $.get('/basic', function(data) {
+                    displayText(data);
+                });
+            });
+
+            $('#cot-btn').click(function() {
+                $.get('/cot', function(data) {
+                    displayText(data);
+                });
+            });
+
+            $('#discover-btn').click(function() {
+                $.get('/discover', function(data) {
+                    displayText(data);
+                });
+            });
+
+            $('#zero-btn').click(function() {
+                $.get('/zero', function(data) {
+                    displayText(data);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
